@@ -1,11 +1,20 @@
+import type { LinksFunction } from "@remix-run/node";
+
 import {
-  Form,
+  Link,
   Links,
   LiveReload,
   Meta,
+  Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+
+import stylesheet from "~/tailwind.css";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: stylesheet },
+];
 
 export default function App() {
   return (
@@ -17,38 +26,38 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div id="sidebar">
-          <h1>Remix Contacts</h1>
-          <div>
-            <Form id="search-form" role="search">
-              <input
-                id="q"
-                aria-label="Search contacts"
-                placeholder="Search"
-                type="search"
-                name="q"
-              />
-              <div id="search-spinner" aria-hidden hidden={true} />
-            </Form>
-            <Form method="post">
-              <button type="submit">New</button>
-            </Form>
-          </div>
-          <nav>
-            <ul>
-              <li>
-                <a href={`/contacts/1`}>Your Name</a>
-              </li>
-              <li>
-                <a href={`/contacts/2`}>Your Friend</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        <div className="grid h-[100dvh] grid-cols-[min-content_1fr] overflow-y-auto">
+          <aside className="sticky bottom-0 left-0 top-0 h-[100dvh] bg-gray-950 px-8 py-4 text-gray-400">
+            <nav>
+              <ul className="flex flex-col gap-2">
+                {[
+                  { to: "/", label: "Home" },
+                  { to: "/chat", label: "Chat" },
+                  { to: "/about", label: "About" },
+                ].map(({ to, label }) => (
+                  <li key={to}>
+                    <Link
+                      className="text-gray-400 hover:text-gray-300"
+                      to={to}
+                      preventScrollReset
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
 
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+          <div className="grid grid-rows-[auto_1fr] ">
+            <header className="p-4">Header</header>
+            <Outlet />
+          </div>
+
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </div>
       </body>
     </html>
   );
