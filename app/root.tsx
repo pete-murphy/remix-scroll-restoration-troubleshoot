@@ -49,8 +49,10 @@ export default function App() {
             </nav>
           </aside>
 
-          <div className="grid grid-rows-[auto_1fr] ">
-            <header className="p-4">Header</header>
+          <div className="grid grid-rows-[auto_1fr]">
+            <header className="sticky top-0 bg-gray-600 p-4 text-gray-50">
+              Header
+            </header>
             <Outlet />
           </div>
 
