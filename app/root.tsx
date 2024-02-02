@@ -26,8 +26,8 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div className="grid h-[100dvh] grid-cols-[min-content_1fr] overflow-y-auto">
-          <aside className="sticky bottom-0 left-0 top-0 h-[100dvh] bg-gray-950 px-8 py-4 text-gray-400">
+        <div className="grid min-h-[100dvh] grid-cols-[min-content_1fr]">
+          <aside className="sticky top-0 h-[100dvh] bg-gray-950 px-8 py-4 text-gray-400">
             <nav>
               <ul className="flex flex-col gap-2">
                 {[
@@ -36,11 +36,7 @@ export default function App() {
                   { to: "/about", label: "About" },
                 ].map(({ to, label }) => (
                   <li key={to}>
-                    <Link
-                      className="text-gray-400 hover:text-gray-300"
-                      to={to}
-                      preventScrollReset
-                    >
+                    <Link className="text-gray-400 hover:text-gray-300" to={to}>
                       {label}
                     </Link>
                   </li>
